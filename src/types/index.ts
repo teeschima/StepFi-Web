@@ -107,3 +107,28 @@ export interface PaginatedResponse<T> {
   limit: number
   totalPages: number
 }
+
+export interface LearnerProfile {
+  walletAddress: string
+  score: number
+  tier: 'Starter' | 'Bronze' | 'Silver' | 'Gold'
+  skills: string[]
+  totalLoans: number
+  activeLoans: number
+  totalBorrowed: number
+  totalRepaid: number
+  lastUpdated: string
+}
+
+export interface ReputationHistoryPoint {
+  date: string
+  score: number
+}
+
+export interface Vouch {
+  id: string
+  mentor: string
+  message?: string
+  status: 'Active' | 'Revoked'
+  createdAt: string
+}
