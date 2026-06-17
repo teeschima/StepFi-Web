@@ -24,10 +24,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handle)
   }, [])
 
-  useEffect(() => {
-    setMobileOpen(false)
-  }, [pathname])
-
   return (
     <nav
       className="fixed top-0 w-full z-50 transition-all duration-300"
@@ -160,6 +156,7 @@ export function Navbar() {
             <Link
               key={link.href}
               to={link.href}
+              onClick={() => setMobileOpen(false)}
               className="px-4 py-3 rounded-lg text-sm font-medium"
               style={{
                 color: pathname === link.href
