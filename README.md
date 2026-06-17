@@ -2,6 +2,8 @@
 
 React TypeScript web application for the StepFi BNPL protocol on Stellar.
 
+**Live URL:** https://stepfi-web.vercel.app
+
 ## Stack
 
 Vite, React 18, TypeScript, Tailwind CSS, Zustand, TanStack Query, Freighter API
