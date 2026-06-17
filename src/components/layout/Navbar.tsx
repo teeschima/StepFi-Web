@@ -24,10 +24,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handle)
   }, [])
 
-  useEffect(() => {
-    setMobileOpen(false)
-  }, [pathname])
-
   return (
     <nav
       className="fixed top-0 w-full z-50 transition-all duration-300"
@@ -44,7 +40,11 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4
         flex items-center justify-between">
 
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link 
+          to="/" 
+          className="flex items-center gap-2 group"
+          onClick={() => setMobileOpen(false)}
+        >
           <svg width="28" height="24" viewBox="0 0 28 24">
             <rect x="0" y="18" width="6" height="6"
               rx="1.5" fill="#1D4ED8"/>
@@ -165,6 +165,7 @@ export function Navbar() {
                 color: pathname === link.href
                   ? '#22C55E' : '#A8BCCF',
               }}
+              onClick={() => setMobileOpen(false)}
             >
               {link.label}
             </Link>
