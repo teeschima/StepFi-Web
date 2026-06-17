@@ -8,10 +8,25 @@ export const api = axios.create({
   },
 })
 
+const TOKEN_STORAGE_KEY = 'stepfi-user'
+
+function getStoredTokens(): { accessToken?: string; refreshToken?: string } {
+  try {
+    const raw = localStorage.getItem(TOKEN_STORAGE_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    const state = parsed?.state
+    if (!state) return {}
+    return { accessToken: state.accessToken, refreshToken: state.refreshToken }
+  } catch {
+    return {}
+  }
+}
+
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+  const { accessToken } = getStoredTokens()
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`
   }
   return config
 })
@@ -20,8 +35,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
+      localStorage.removeItem(TOKEN_STORAGE_KEY)
       window.location.href = '/'
     }
     return Promise.reject(error)

@@ -16,13 +16,9 @@ export const useUserStore = create<UserStore>()(
       refreshToken: '',
       isAuthenticated: false,
       setTokens: (accessToken, refreshToken) => {
-        localStorage.setItem('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken)
         set({ accessToken, refreshToken, isAuthenticated: true })
       },
       clearTokens: () => {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
         set({
           accessToken: '',
           refreshToken: '',

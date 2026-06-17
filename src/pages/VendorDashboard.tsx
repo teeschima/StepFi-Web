@@ -11,6 +11,7 @@ import { Card } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
+import { sanitizeText } from '../lib/sanitize'
 import type {
   VendorDashboardOverview, VendorLoan, VendorPayment,
   VendorProduct, ApiKey, PaginatedResponse
@@ -142,7 +143,7 @@ function LoansTable({
               {data.map((loan) => (
                 <tr key={loan.id} className="border-b border-border/50 hover:bg-surface/50 transition-colors">
                   <td className="py-3 px-3 text-text-muted font-mono text-xs">{loan.id.slice(0, 8)}...</td>
-                  <td className="py-3 px-3 text-text-primary">{loan.product}</td>
+                  <td className="py-3 px-3 text-text-primary">{sanitizeText(loan.product)}</td>
                   <td className="py-3 px-3 text-text-secondary font-mono text-xs">
                     {loan.borrower.slice(0, 6)}...{loan.borrower.slice(-4)}
                   </td>
@@ -217,11 +218,11 @@ function ProductsSection({ products, isLoading }: { products?: VendorProduct[]; 
               className="p-4 rounded-xl border border-border bg-elevated/30"
             >
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-text-primary font-medium text-sm">{product.name}</h4>
+                <h4 className="text-text-primary font-medium text-sm">{sanitizeText(product.name)}</h4>
                 <Badge label={product.active ? 'Active' : 'Inactive'} variant={product.active ? 'green' : 'muted'} />
               </div>
               {product.description && (
-                <p className="text-text-muted text-xs mb-3">{product.description}</p>
+                <p className="text-text-muted text-xs mb-3">{sanitizeText(product.description)}</p>
               )}
               <p className="text-text-primary font-display font-bold text-lg">${product.price.toLocaleString()}</p>
             </div>
@@ -341,7 +342,7 @@ function ApiKeySection({
             >
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-text-primary text-sm font-medium">{key.label}</span>
+                  <span className="text-text-primary text-sm font-medium">{sanitizeText(key.label)}</span>
                   <Badge label={key.revoked ? 'Revoked' : 'Active'} variant={key.revoked ? 'red' : 'green'} />
                 </div>
                 <p className="text-text-muted text-xs font-mono mt-0.5">

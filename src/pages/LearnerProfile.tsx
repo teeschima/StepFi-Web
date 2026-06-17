@@ -10,6 +10,7 @@ import { Card } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { Spinner } from '../components/ui/Spinner'
+import { sanitizeText } from '../lib/sanitize'
 import type { LearnerProfile, ReputationHistoryPoint, Vouch, Loan } from '../types'
 
 const TIER_COLORS: Record<string, 'green' | 'blue' | 'amber' | 'red' | 'muted'> = {
@@ -272,7 +273,7 @@ export function LearnerProfile() {
                       <Badge label="Active" variant="green" />
                     </div>
                     {vouch.message && (
-                      <p className="text-text-muted text-xs mt-1">{vouch.message}</p>
+                      <p className="text-text-muted text-xs mt-1">{sanitizeText(vouch.message)}</p>
                     )}
                     <p className="text-text-muted text-xs mt-1">
                       {new Date(vouch.createdAt).toLocaleDateString()}
